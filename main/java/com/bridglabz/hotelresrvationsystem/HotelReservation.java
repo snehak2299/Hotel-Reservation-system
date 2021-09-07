@@ -85,9 +85,11 @@ public class HotelReservation {
 		});
 		
 		Integer n = Arrays.asList(rate).indexOf(Collections.min(Arrays.asList(rate)));
-		System.out.println(nameOfhotel.get(n).name + ", Rate: " + rate[n]);
-		
-		//return nameOfhotel.get(n).name;
+		for(int i=0;i<rate.length;i++) {
+			if (rate[i].equals(n)) {
+				nameOfhotel.add(nameOfhotel.get(i).name);
+			}
+		}
         System.out.println("Cheapest hotel for given date is " + nameOfhotel.get(n).name + " with price "+ rate);
     }
 
