@@ -71,20 +71,24 @@ public class HotelReservation {
             diff--;
         }
 
-        Integer[] price ={0,0,0};
-        for (int i=0; i<Dates.size(); i++){
-            for (int j=0; j<nameOfhotel.size(); j++) {
-
-                if (Dates.get(i).getDayOfWeek().equals(DayOfWeek.SATURDAY) || Dates.get(i).getDayOfWeek().equals(DayOfWeek.SUNDAY)){
-                    price[j] += nameOfhotel.get(j).rates.get(CustomerType.Regular).weekendRate;
-                }
-                else
-                    price[j] += nameOfhotel.get(j).rates.get(CustomerType.Rewarded).weekdayRate;
-            }
-        }
-
-        int n = Arrays.asList(price).indexOf(Collections.min(Arrays.asList(price)));
-        System.out.println("Cheapest hotel for given date is " + nameOfhotel.get(n).name + " with price "+ price);
+       Integer[] rate=new Integer[] {0,0,0};
+		
+		Dates.stream().forEach(n->{
+			for(int i=0;i<nameOfhotel.size();i++) {
+				if (n.getDayOfWeek().getValue() == 6 || n.getDayOfWeek().getValue() == 7) {
+					rate[i] += nameOfhotel.get(i).rates.get(CustomerType.Regular).weekendRate;
+				}
+				else {
+					rate[i] += nameOfhotel.get(i).rates.get(CustomerType.Regular).weekdayRate;
+				}
+			}
+		});
+		
+		Integer n = Arrays.asList(rate).indexOf(Collections.min(Arrays.asList(rate)));
+		System.out.println(nameOfhotel.get(n).name + ", Rate: " + rate[n]);
+		
+		//return nameOfhotel.get(n).name;
+        System.out.println("Cheapest hotel for given date is " + nameOfhotel.get(n).name + " with price "+ rate);
     }
 
 
