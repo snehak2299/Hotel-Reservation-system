@@ -84,12 +84,11 @@ public class HotelReservation {
 		
 		ArrayList<LocalDate> dateArr = new ArrayList<>();
 		dateArr.add(LocalDate.parse(inputArr[0],fomat));
-		long noOfDaysBetween = ChronoUnit.DAYS.between(LocalDate.parse(inputArr[0],fomat), LocalDate.parse(inputArr[1],fomat));
+		long diff = ChronoUnit.DAYS.between(LocalDate.parse(inputArr[0],fomat), LocalDate.parse(inputArr[1],fomat));
 		
-		//Done this so that after passing into stream can get rate for many days as well.
-		while(noOfDaysBetween>0) {
+		while(diff>0) {
 			dateArr.add(dateArr.get(dateArr.size()-1).plusDays(1));
-			noOfDaysBetween--;
+			diff--;
 		}
 		
 		Integer[] rate=new Integer[] {0,0,0};
@@ -131,18 +130,16 @@ public class HotelReservation {
 		ArrayList<LocalDate> dateArr = new ArrayList<>();
 		dateArr.add(LocalDate.parse(inputArr[0],fomat));
 		long noOfDaysBetween = ChronoUnit.DAYS.between(LocalDate.parse(inputArr[0],fomat), LocalDate.parse(inputArr[1],fomat));
-		
-		//Done this so that after passing into stream can get rate for many days as well.
 		while(noOfDaysBetween>0) {
 			dateArr.add(dateArr.get(dateArr.size()-1).plusDays(1));
 			noOfDaysBetween--;
 		}
 		
 		Integer[] rate=new Integer[] {0,0,0};
-		ArrayList<String> nameHotel = new ArrayList<String>();
+		ArrayList<String> nameOfHotel = new ArrayList<String>();
 		
 		dateArr.stream().forEach(n->{
-			for(int i=0;i<nameOfhotel.size();i++) {
+			for(int i=0;i<nameOfHotel.size();i++) {
 				if (n.getDayOfWeek().getValue() == 6 || n.getDayOfWeek().getValue() == 7) {
 					rate[i] += nameOfhotel.get(i).rates.get(CustomerType.Regular).weekendRate;
 				}
@@ -154,7 +151,7 @@ public class HotelReservation {
 		});
 		
 		Integer ratings= 0;
-		for(int i=0;i<nameOfhotel.size();i++) {
+		for(int i=0;i<nameOfHotel.size();i++) {
 			ratings = Math.max(ratings, nameOfhotel.get(i).rating);
 		}
 		
@@ -173,12 +170,11 @@ public class HotelReservation {
 			}
 		}
 		
-		return String.join(" and ", hotelNameVariable) + ", Total Rates: " +value;
+		return String.join(" & ", hotelNameVariable) + ", Rates: " +value;
 	}
 	
 	
-	//Added just to view entered values
-	public void toPrint() {
+	public void print() {
 		for(int i=0;i<3;i++) {
 			System.out.println(nameOfhotel.get(i).rates.get(CustomerType.Regular).weekdayRate);
 			System.out.println(nameOfhotel.get(i).rates.get(CustomerType.Regular).weekendRate);
