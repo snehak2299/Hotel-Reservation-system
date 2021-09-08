@@ -2,6 +2,9 @@ package com.bridglabz.hotelreservationtest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java. util. HashMap;
+import java.util.Scanner;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,12 +37,16 @@ public class HotelReservationTest {
 		HotelReservation ridgewood = new HotelReservation("ridgewood",5,customerTypeRate);
 		hotel.add(ridgewood);
 	}
-
+	
+	
 	@Test
-    public void ifChipestHotel_returnNamePrice() {
-		LocalDate start = LocalDate.parse("09Sep2021");
-		LocalDate end = LocalDate.parse("10Sep2021");
-//	
-        hotelReservation.cheapeastHotel(start,end);
-    }
+	public void findHotel_CheapestRatingAmongAll_ShouldReturnHotelName() {
+		
+		Scanner sc = new Scanner(System.in);
+		String inputDate = sc.nextLine();
+		hotelReservation = new HotelReservation();
+		String name = hotelReservation.bestRatedHotel(inputDate);
+		Assert.assertEquals("Bridgewood, Rating: 4 and  Rates: 200", name);
+		
+	}
 }
