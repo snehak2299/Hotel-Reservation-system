@@ -123,6 +123,7 @@ public class HotelReservation {
 		String[] names = resultHotel(inputDate);
 		return names[0] + ", Total Rates: "+ Integer.valueOf(names[1]);
 	}
+	
 	public String bestRatedHotelName(String inputDate) {
 		String[] inputArr = inputDate.split(",");
 		DateTimeFormatter fomat = DateTimeFormatter.ofPattern("ddMMMyyyy");
@@ -148,8 +149,9 @@ public class HotelReservation {
 				}
 			}
 			
+			
 		});
-		
+		// to find cheap best rated hotel
 		Integer ratings= 0;
 		for(int i=0;i<nameOfHotel.size();i++) {
 			ratings = Math.max(ratings, nameOfhotel.get(i).rating);
@@ -172,7 +174,45 @@ public class HotelReservation {
 		
 		return String.join(" & ", hotelNameVariable) + ", Rates: " +value;
 	}
-	
+	public String BestRatedCheapHotelForRewarded(String inputDate){
+
+        String[] inputArr = inputDate.split(",");
+        DateTimeFormatter fomat = DateTimeFormatter.ofPattern("ddMMMyyyy");
+
+        ArrayList<LocalDate> dateArr = new ArrayList<>();
+        dateArr.add(LocalDate.parse(inputArr[0],fomat));
+        long noOfDaysBetween = ChronoUnit.DAYS.between(LocalDate.parse(inputArr[0],fomat), LocalDate.parse(inputArr[1],fomat));
+
+        while(noOfDaysBetween>0) {
+            dateArr.add(dateArr.get(dateArr.size()-1).plusDays(1));
+            noOfDaysBetween--;
+        }
+
+        Integer[] rate=new Integer[] {0,0,0};
+        int total=0;
+
+
+
+        dateArr.stream().forEach(n->{
+            for(int i=0;i<nameOfhotel.size();i++) {
+
+                if (n.getDayOfWeek().equals(DayOfWeek.SATURDAY) || n.getDayOfWeek().equals(DayOfWeek.SUNDAY)) {
+
+                    rate[i] += nameOfhotel.get(i).rates.get(CustomerType.Rewarded).weekendRate;
+                    Rate hotelRates=new Rate(nameOfhotel.get(i).name,nameOfhotel.get(i).rating,rate[i]);
+                    rates.add(hotelRates);
+                }
+                else {
+
+                    rate[i] += nameOfhotel.get(i).rates.get(CustomerType.Rewarded).weekdayRate;
+                    Rate hotelRates=new Rate(nameOfhotel.get(i).name,nameOfhotel.get(i).rating,rate[i]);
+                    rates.add(hotelRates);
+                }
+
+            }
+        });
+
+	}
 	
 	public void print() {
 		for(int i=0;i<3;i++) {

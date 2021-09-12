@@ -82,10 +82,18 @@ public class HotelReservationTest {
 	public void findHotelName_BestRatingAmongChpeast_ShouldReturnName() {
 		
 		Scanner sc = new Scanner(System.in);
-		String inputDate = sc.nextLine();
+		String inputDate = "11Sep2020,12Sep2020";
 		hotelReservation = new HotelReservation();
 		String name = hotelReservation.bestRatedHotelName(inputDate);
 		Assert.assertEquals("Ridgewood, Rating: 5 and Total Rates: 140", name);
 		
 	}
+	@Test
+    public void findHotelName_BestRatedCheapestForRewardedC_ShouldReturnName() {
+        String inputDate ="11Sep2020,12Sep2020";
+        hotelReservation= new HotelReservation();
+        String name = hotelReservation.BestRatedCheapHotelForRewarded(inputDate);
+        Assert.assertEquals("Best rated cheap hotel for rewarded: Ridgewood, Rate: 140 Ratings: 5", name);
+
+    }
 }
