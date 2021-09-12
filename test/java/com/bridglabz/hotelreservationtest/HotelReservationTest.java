@@ -89,11 +89,11 @@ public class HotelReservationTest {
 		
 	}
 	@Test
-    public void findHotelName_BestRatedCheapestForRewardedC_ShouldReturnName() {
+    public void findHotelName_BestRatedCheapestForRegularC_ShouldReturnName() {
         String inputDate ="11Sep2020,12Sep2020";
         hotelReservation= new HotelReservation();
-        String name = hotelReservation.BestRatedCheapHotelForRewarded(inputDate);
-        Assert.assertEquals("Best rated cheap hotel for rewarded: Ridgewood, Rate: 140 Ratings: 5", name);
+        String name = hotelReservation.BestRatedCheapHotelForRegular(inputDate);
+        Assert.assertEquals("Best rated cheap hotel for rewarded: Bridgewood, Rate: 200 Ratings: 4", name);
 
     }
 }

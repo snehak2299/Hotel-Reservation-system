@@ -174,7 +174,7 @@ public class HotelReservation {
 		
 		return String.join(" & ", hotelNameVariable) + ", Rates: " +value;
 	}
-	public String BestRatedCheapHotelForRewarded(String inputDate){
+	public String BestRatedCheapHotelForRegular(String inputDate){
 
         String[] inputArr = inputDate.split(",");
         DateTimeFormatter fomat = DateTimeFormatter.ofPattern("ddMMMyyyy");
